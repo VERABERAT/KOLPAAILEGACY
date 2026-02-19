@@ -2,144 +2,299 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kolpa AI | Decode Your Relationships</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Kolpa AI | Relationship Analysis</title>
     <style>
-        /* CSS RESET & VARIABLES */
+        /* --- CSS VARIABLES & RESET --- */
         :root {
-            --primary-color: #000000;
-            --accent-color: #0071e3; /* Apple Blue */
-            --bg-color: #fbfbfd;
-            --text-main: #1d1d1f;
-            --text-muted: #86868b;
+            --primary-bg: #ffffff;
+            --secondary-bg: #f5f5f7; /* Apple light gray */
+            --text-primary: #1d1d1f; /* Apple almost black */
+            --text-secondary: #86868b; /* Apple gray */
+            --accent-color: #0071e3; /* Apple blue */
+            --danger-color: #d70015;
+            --section-spacing: 100px;
         }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
-        body { background-color: var(--bg-color); color: var(--text-main); line-height: 1.6; }
+        html { scroll-behavior: smooth; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+        body { background-color: var(--primary-bg); color: var(--text-primary); line-height: 1.5; overflow-x: hidden; }
+        section { padding: var(--section-spacing) 20px; }
 
-        /* NAVBAR */
-        nav { position: fixed; top: 0; width: 100%; background: rgba(251, 251, 253, 0.8); backdrop-filter: blur(10px); z-index: 1000; border-bottom: 1px solid #e5e5ea; display: flex; justify-content: space-between; padding: 15px 50px; align-items: center; }
-        .logo { font-size: 24px; font-weight: 700; color: var(--primary-color); text-decoration: none; letter-spacing: -0.5px;}
-        .nav-links a { text-decoration: none; color: var(--text-main); margin-left: 30px; font-size: 14px; transition: color 0.3s; }
-        .nav-links a:hover { color: var(--accent-color); }
+        /* --- UTILITIES --- */
+        .hidden { display: none !important; }
+        .container { max-width: 1080px; margin: 0 auto; }
+        h1, h2, h3 { font-weight: 600; letter-spacing: -0.02em; }
+        h2 { font-size: 40px; text-align: center; margin-bottom: 50px; }
+        p { color: var(--text-secondary); font-size: 17px; }
+        a { text-decoration: none; color: var(--accent-color); transition: color 0.2s ease; }
+        a:hover { text-decoration: underline; }
 
-        /* HERO SECTION */
-        .hero { text-align: center; padding: 150px 20px 100px; max-width: 800px; margin: 0 auto; }
-        .hero h1 { font-size: 56px; font-weight: 700; letter-spacing: -1.5px; margin-bottom: 15px; }
-        .hero p { font-size: 24px; color: var(--text-muted); margin-bottom: 40px; font-weight: 400; }
-        .download-btn { display: inline-block; background-color: var(--primary-color); color: white; padding: 15px 30px; border-radius: 30px; text-decoration: none; font-size: 18px; font-weight: 600; transition: transform 0.2s; }
-        .download-btn:hover { transform: scale(1.05); }
+        /* --- NAVBAR --- */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 30px; position: fixed; width: 100%; top: 0; z-index: 1000;
+            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+        .nav-left { display: flex; align-items: center; }
+        .logo-img { height: 32px; width: auto; margin-right: 15px; /* Lütfen logo dosyanızı 'logo.png' olarak kaydedin */ }
+        .nav-brand { font-size: 20px; font-weight: 600; color: var(--text-primary); text-decoration: none; }
+        
+        .nav-right { display: flex; align-items: center; gap: 25px; }
+        .nav-links a { font-size: 14px; color: var(--text-secondary); font-weight: 500; }
+        .nav-links a:hover { color: var(--text-primary); text-decoration: none; }
+        
+        /* Language Switcher */
+        .lang-switch { display: flex; border: 1px solid #d2d2d7; border-radius: 8px; overflow: hidden; }
+        .lang-btn {
+            border: none; background: none; padding: 6px 12px; font-size: 13px; font-weight: 500; cursor: pointer;
+            color: var(--text-secondary); transition: all 0.2s ease;
+        }
+        .lang-btn.active { background-color: var(--text-primary); color: white; }
 
-        /* FEATURES SECTION */
-        .features { display: flex; justify-content: center; gap: 40px; padding: 50px 20px; max-width: 1000px; margin: 0 auto; flex-wrap: wrap; }
-        .feature-box { background: #fff; padding: 40px; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); text-align: center; flex: 1; min-width: 250px; }
-        .feature-box h3 { font-size: 20px; margin-bottom: 10px; }
-        .feature-box p { color: var(--text-muted); font-size: 15px; }
+        /* --- HERO SECTION --- */
+        .hero {
+            text-align: center; padding-top: 160px; padding-bottom: 80px;
+            background: radial-gradient(circle at center, #fbfbfd 0%, #ffffff 100%);
+        }
+        .hero h1 { font-size: 64px; line-height: 1.05; margin-bottom: 20px; }
+        .hero p { font-size: 22px; max-width: 700px; margin: 0 auto 40px auto; }
+        .cta-button {
+            display: inline-block; background-color: var(--text-primary); color: white;
+            padding: 15px 35px; border-radius: 30px; font-size: 17px; font-weight: 600;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+        .cta-button:hover { transform: scale(1.03); background-color: #000; text-decoration: none; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
 
-        /* LEGAL SECTIONS (Privacy & Terms) */
-        .legal-container { max-width: 800px; margin: 50px auto; padding: 40px; background: #fff; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
-        .legal-container h2 { font-size: 28px; border-bottom: 1px solid #e5e5ea; padding-bottom: 15px; margin-bottom: 25px; margin-top: 40px;}
-        .legal-container h3 { font-size: 18px; margin-top: 20px; margin-bottom: 5px; }
-        .legal-container p, .legal-container ul { font-size: 15px; color: #555; margin-bottom: 15px; }
-        .legal-container ul { margin-left: 20px; }
-        .warning-box { background-color: #fef0f0; border: 1px solid #f5c2c7; color: #842029; padding: 15px; border-radius: 10px; margin: 20px 0; font-weight: 600; }
-        .lang-divider { text-align: center; margin: 30px 0; font-weight: bold; color: #ccc; letter-spacing: 2px; }
+        /* --- FEATURES SECTION --- */
+        .features { background-color: var(--secondary-bg); }
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; }
+        .feature-card {
+            background: var(--primary-bg); padding: 40px; border-radius: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04); text-align: left; transition: transform 0.3s ease;
+        }
+        .feature-card:hover { transform: translateY(-5px); }
+        .feature-icon { font-size: 24px; color: var(--accent-color); margin-bottom: 20px; font-weight: 700;}
+        .feature-card h3 { font-size: 20px; margin-bottom: 12px; color: var(--text-primary); }
 
-        /* FOOTER */
-        footer { text-align: center; padding: 40px 20px; border-top: 1px solid #e5e5ea; margin-top: 50px; color: var(--text-muted); font-size: 14px; }
-        footer a { color: var(--accent-color); text-decoration: none; }
+        /* --- LEGAL SECTIONS --- */
+        .legal-section { padding-top: 80px; }
+        .legal-content { max-width: 800px; margin: 0 auto; }
+        .legal-content h3 { font-size: 22px; margin-top: 35px; margin-bottom: 15px; color: var(--text-primary); }
+        .legal-content p, .legal-content li { font-size: 15px; margin-bottom: 15px; color: var(--text-secondary);}
+        .legal-content ul { padding-left: 20px; margin-bottom: 20px; }
+        .disclaimer-box {
+            background-color: #fff2f4; border-left: 4px solid var(--danger-color);
+            padding: 20px; border-radius: 12px; margin: 30px 0; color: var(--danger-color); font-weight: 500; font-size: 15px;
+        }
 
-        /* RESPONSIVE */
+        /* --- FOOTER --- */
+        footer { background: var(--secondary-bg); padding: 50px 20px; text-align: center; margin-top: 50px; font-size: 13px; }
+        footer p { color: var(--text-secondary); font-size: 13px; margin-bottom: 10px; }
+
+        /* --- RESPONSIVE --- */
         @media (max-width: 768px) {
-            nav { flex-direction: column; padding: 15px; gap: 15px; }
-            .nav-links a { margin: 0 10px; }
-            .hero h1 { font-size: 40px; }
-            .hero p { font-size: 18px; }
-            .hero { padding-top: 120px; }
+            .nav-links { display: none; } /* Mobile'da linkleri gizle, sadece dil kalsın */
+            .hero h1 { font-size: 42px; }
+            .hero p { font-size: 19px; }
+            h2 { font-size: 32px; }
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <a href="#" class="logo">Kolpa AI</a>
-        <div class="nav-links">
-            <a href="#about">About</a>
-            <a href="#privacy">Privacy</a>
-            <a href="#terms">Terms</a>
-            <a href="mailto:support@kolpaai.me">Contact</a>
+        <div class="nav-left">
+            <img src="logo.png" alt="Kolpa AI Logo" class="logo-img">
+            <a href="#" class="nav-brand">Kolpa AI</a>
+        </div>
+        <div class="nav-right">
+            <div class="nav-links">
+                <a href="#features" data-lang="en">Features</a>
+                <a href="#features" data-lang="tr" class="hidden">Özellikler</a>
+                <a href="#privacy" data-lang="en">Privacy</a>
+                <a href="#privacy" data-lang="tr" class="hidden">Gizlilik</a>
+                <a href="#terms" data-lang="en">Terms</a>
+                <a href="#terms" data-lang="tr" class="hidden">Koşullar</a>
+            </div>
+            <div class="lang-switch">
+                <button class="lang-btn active" onclick="setLanguage('en')">EN</button>
+                <button class="lang-btn" onclick="setLanguage('tr')">TR</button>
+            </div>
         </div>
     </nav>
 
     <section class="hero">
-        <h1>Decode Your Chats.<br>Understand Your Relationships.</h1>
-        <p>The ultimate AI-powered chat analyzer designed for entertainment and fresh perspectives.</p>
-        <a href="#" class="download-btn">Download on the App Store</a>
-    </section>
-
-    <section id="about" class="features">
-        <div class="feature-box">
-            <h3>📱 Upload Screenshots</h3>
-            <p>Simply take a screenshot of your chat and securely upload it for instant analysis.</p>
-        </div>
-        <div class="feature-box">
-            <h3>🧠 AI Analysis</h3>
-            <p>Our advanced AI reads between the lines to uncover hidden tones and red flags.</p>
-        </div>
-        <div class="feature-box">
-            <h3>💬 Get Insights</h3>
-            <p>Receive fun, engaging, and brutally honest feedback about your conversations.</p>
+        <div class="container">
+            <div data-lang="en">
+                <h1>Decode Your Relationships<br>with AI Precision.</h1>
+                <p>The professional relationship analysis tool. Gain unbiased insights and clarity from your chat history instantly.</p>
+                <a href="#" class="cta-button">Download on the App Store</a>
+            </div>
+            <div data-lang="tr" class="hidden">
+                <h1>İlişkilerinizi Yapay Zeka<br>Hassasiyetiyle Çözümleyin.</h1>
+                <p>Profesyonel ilişki analiz aracı. Sohbet geçmişinizden anında tarafsız içgörüler ve netlik kazanın.</p>
+                <a href="#" class="cta-button">App Store'dan İndir</a>
+            </div>
         </div>
     </section>
 
-    <section id="privacy" class="legal-container">
-        <h2>Privacy Policy / Gizlilik Politikası</h2>
-        <p><strong>Last Updated:</strong> February 19, 2026</p>
-
-        <div class="lang-divider">--- ENGLISH ---</div>
-        <h3>1. Data Collection and Usage</h3>
-        <p>Kolpa AI is an AI-powered entertainment application. To provide our core functionality, the app requires users to upload chat screenshots or text.</p>
-        <ul>
-            <li><strong>Zero Retention Policy:</strong> We do not store, save, or log your screenshots, texts, or analysis results on our servers. All data is processed in real-time and immediately discarded.</li>
-            <li><strong>No Personal Data Harvesting:</strong> We do not collect names, phone numbers, or metadata from the uploaded screenshots.</li>
-        </ul>
-        <h3>2. Third-Party AI Processing</h3>
-        <p>Kolpa AI securely transmits anonymized text to third-party AI service providers (e.g., Google Gemini API). They are prohibited from using your data to train models that identify you.</p>
-
-        <div class="lang-divider">--- TÜRKÇE ---</div>
-        <h3>1. Veri Toplama ve Kullanım</h3>
-        <p>Kolpa AI, yapay zeka destekli bir eğlence uygulamasıdır. Yüklediğiniz ekran görüntüleri, metinler veya analiz sonuçları sunucularımızda KESİNLİKLE SAKLANMAZ. Tüm veriler işlendikten sonra anında silinir.</p>
-        <h3>2. Üçüncü Taraf Yapay Zeka (AI) İşleme</h3>
-        <p>Uygulama, size tavsiye üretebilmek için metinleri güvenli bir şekilde üçüncü taraf AI sağlayıcılarına (örn. Google Gemini API) iletir.</p>
+    <section id="features" class="features">
+        <div class="container">
+            <h2 data-lang="en">Core Features</h2>
+            <h2 data-lang="tr" class="hidden">Temel Özellikler</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">01.</div>
+                    <div data-lang="en">
+                        <h3>Seamless Integration</h3>
+                        <p>Upload screenshots or paste text directly from any messaging platform. Our system processes data securely and instantly.</p>
+                    </div>
+                    <div data-lang="tr" class="hidden">
+                        <h3>Sorunsuz Entegrasyon</h3>
+                        <p>Herhangi bir mesajlaşma platformundan ekran görüntüleri yükleyin veya metni doğrudan yapıştırın. Sistemimiz verileri güvenli ve anında işler.</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">02.</div>
+                    <div data-lang="en">
+                        <h3>Advanced AI Models</h3>
+                        <p>Utilizing state-of-the-art language models to detect underlying tones, passive aggression, and emotional patterns.</p>
+                    </div>
+                    <div data-lang="tr" class="hidden">
+                        <h3>Gelişmiş YZ Modelleri</h3>
+                        <p>Altta yatan tonları, pasif agresifliği ve duygusal kalıpları tespit etmek için en son teknoloji dil modellerini kullanır.</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">03.</div>
+                    <div data-lang="en">
+                        <h3>Objective Insights</h3>
+                        <p>Receive impartial, clear, and actionable feedback on conversation dynamics, distinct from human bias.</p>
+                    </div>
+                    <div data-lang="tr" class="hidden">
+                        <h3>Objektif İçgörüler</h3>
+                        <p>Konuşma dinamikleri hakkında, insan önyargısından uzak, tarafsız, net ve uygulanabilir geri bildirimler alın.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <section id="terms" class="legal-container">
-        <h2>Terms of Use (EULA) / Kullanım Koşulları</h2>
-        <p><strong>Last Updated:</strong> February 19, 2026</p>
+    <section id="privacy" class="legal-section">
+        <div class="container legal-content">
+            <div data-lang="en">
+                <h2>Privacy Policy</h2>
+                <p><strong>Last Updated:</strong> February 19, 2026</p>
+                <h3>1. Data Collection and Usage</h3>
+                <p>Kolpa AI is an AI-powered entertainment application. To provide our core functionality, the app requires users to upload chat screenshots or text.</p>
+                <ul>
+                    <li><strong>Zero Retention Policy:</strong> We do not store, save, or log your screenshots, texts, or analysis results on our servers. All data is processed in real-time and immediately discarded after the AI generates a response.</li>
+                    <li><strong>No Personal Data Harvesting:</strong> We do not collect names, phone numbers, or metadata from the uploaded screenshots.</li>
+                </ul>
+                <h3>2. Third-Party AI Processing</h3>
+                <p>To analyze the provided text and generate advice, Kolpa AI securely transmits the anonymized text data to third-party AI service providers (e.g., Google Gemini API). These providers process the data strictly to generate the response and are prohibited from using your data to train their models in a way that identifies you.</p>
+                <h3>3. Contact Us</h3>
+                <p>For any privacy-related requests, contact us at: <a href="mailto:support@kolpaai.me">support@kolpaai.me</a></p>
+            </div>
 
-        <div class="lang-divider">--- ENGLISH ---</div>
-        <div class="warning-box">
-            MEDICAL & PSYCHOLOGICAL DISCLAIMER: KOLPA AI IS FOR ENTERTAINMENT PURPOSES ONLY. THE APP IS NOT A LICENSED THERAPIST OR RELATIONSHIP COUNSELOR. Do not make serious life decisions based on this app.
+            <div data-lang="tr" class="hidden">
+                <h2>Gizlilik Politikası</h2>
+                <p><strong>Son Güncelleme:</strong> 19 Şubat 2026</p>
+                <h3>1. Veri Toplama ve Kullanım</h3>
+                <p>Kolpa AI, yapay zeka destekli bir eğlence uygulamasıdır. Uygulamanın çalışabilmesi için kullanıcıların sohbet metinleri veya ekran görüntüleri yüklemesi gerekir.</p>
+                <ul>
+                    <li><strong>Sıfır Kayıt Politikası:</strong> Yüklediğiniz ekran görüntüleri, metinler veya analiz sonuçları sunucularımızda KESİNLİKLE SAKLANMAZ. Tüm veriler gerçek zamanlı işlenir ve yapay zeka yanıt ürettikten hemen sonra tamamen silinir.</li>
+                    <li><strong>Kişisel Veri Toplanmaz:</strong> Yüklenen görsellerden isim, telefon numarası veya üst veri (metadata) toplamıyoruz.</li>
+                </ul>
+                <h3>2. Üçüncü Taraf Yapay Zeka (AI) İşleme</h3>
+                <p>Uygulama, size tavsiye üretebilmek için metin verilerini güvenli bir şekilde üçüncü taraf yapay zeka sağlayıcılarına (örn. Google Gemini API) iletir. Bu sağlayıcılar, verileri yalnızca size yanıt üretmek için kullanır.</p>
+                <h3>3. İletişim</h3>
+                <p>Gizlilik talepleriniz için bize ulaşın: <a href="mailto:support@kolpaai.me">support@kolpaai.me</a></p>
+            </div>
         </div>
-        <h3>1. Subscriptions and In-App Purchases</h3>
-        <p>Payment will be charged to your Apple ID account. Subscription automatically renews unless cancelled 24 hours before the end of the period. Manage subscriptions in your App Store Settings.</p>
-        <h3>2. Standard Apple EULA</h3>
-        <p>You also agree to Apple’s Standard EULA: <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank">Apple Terms</a>.</p>
+    </section>
 
-        <div class="lang-divider">--- TÜRKÇE ---</div>
-        <div class="warning-box">
-            TIBBİ VE PSİKOLOJİK YASAL UYARI: KOLPA AI SADECE EĞLENCE AMAÇLIDIR. LİSANSLI BİR TERAPİST VEYA UZMAN DEĞİLDİR. Hayatınızla ilgili ciddi kararları bu uygulamanın çıktılarına dayanarak almayınız.
+    <section id="terms" class="legal-section" style="background-color: var(--secondary-bg);">
+        <div class="container legal-content">
+            <div data-lang="en">
+                <h2>Terms of Use (EULA)</h2>
+                <p><strong>Last Updated:</strong> February 19, 2026</p>
+                
+                <div class="disclaimer-box">
+                    CRITICAL DISCLAIMER: KOLPA AI IS FOR ENTERTAINMENT PURPOSES ONLY. THE APP IS NOT A LICENSED THERAPIST, PSYCHOLOGIST, OR RELATIONSHIP COUNSELOR. Do not make serious life, legal, or medical decisions based on the output of this app.
+                </div>
+
+                <h3>1. Subscriptions and In-App Purchases</h3>
+                <ul>
+                    <li>Payment will be charged to your Apple ID account at confirmation of purchase.</li>
+                    <li>Subscription automatically renews unless cancelled at least 24 hours before the end of the current period.</li>
+                    <li>You can manage and cancel your subscriptions in your App Store Account Settings.</li>
+                </ul>
+
+                <h3>2. Standard Apple EULA</h3>
+                <p>In addition to these terms, you agree to Apple’s Standard EULA: <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank">Apple Media Services Terms and Conditions</a>.</p>
+            </div>
+
+            <div data-lang="tr" class="hidden">
+                <h2>Kullanım Koşulları (EULA)</h2>
+                <p><strong>Son Güncelleme:</strong> 19 Şubat 2026</p>
+
+                <div class="disclaimer-box">
+                    KRİTİK YASAL UYARI: KOLPA AI SADECE EĞLENCE AMAÇLIDIR. BU UYGULAMA LİSANSLI BİR TERAPİST VEYA İLİŞKİ UZMANI DEĞİLDİR. Hayatınızla, ilişkilerinizle veya sağlığınızla ilgili ciddi kararları asla bu uygulamanın çıktılarına dayanarak almamalısınız.
+                </div>
+
+                <h3>1. Abonelikler ve Uygulama İçi Satın Alımlar</h3>
+                <ul>
+                    <li>Ödeme, satın alma onayında Apple ID hesabınızdan tahsil edilecektir.</li>
+                    <li>Abonelik, mevcut dönemin bitiminden en az 24 saat önce iptal edilmediği sürece otomatik olarak yenilenir.</li>
+                    <li>Satın alma işleminden sonra App Store Hesap Ayarlarınıza giderek aboneliklerinizi yönetebilir ve iptal edebilirsiniz.</li>
+                </ul>
+
+                <h3>2. Standart Apple EULA</h3>
+                <p>Bu koşullara ek olarak, Apple'ın Standart EULA şartlarını da kabul etmiş sayılırsınız: <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank">Apple Medya Hizmetleri Hüküm ve Koşulları</a>.</p>
+            </div>
         </div>
-        <h3>1. Abonelikler ve Satın Alımlar</h3>
-        <p>Ödeme Apple ID hesabınızdan tahsil edilir. Abonelik bitiminden 24 saat önce iptal edilmezse yenilenir. App Store ayarlarından yönetebilirsiniz.</p>
-        <h3>2. Standart Apple EULA</h3>
-        <p>Apple'ın Standart EULA şartlarını da kabul etmiş sayılırsınız: <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank">Apple Medya Hizmetleri Şartları</a>.</p>
     </section>
 
     <footer>
-        <p>&copy; 2026 Kolpa AI. All rights reserved.</p>
-        <p>Have questions? Email us at: <a href="mailto:support@kolpaai.me">support@kolpaai.me</a></p>
+        <div class="container">
+            <p>&copy; 2026 Kolpa AI. All rights reserved.</p>
+            <p data-lang="en">Contact Support: <a href="mailto:support@kolpaai.me">support@kolpaai.me</a></p>
+            <p data-lang="tr" class="hidden">Destek İletişim: <a href="mailto:support@kolpaai.me">support@kolpaai.me</a></p>
+        </div>
     </footer>
+
+    <script>
+        function setLanguage(lang) {
+            // Tüm İngilizce ve Türkçe elementleri bul
+            const enElements = document.querySelectorAll('[data-lang="en"]');
+            const trElements = document.querySelectorAll('[data-lang="tr"]');
+            const buttons = document.querySelectorAll('.lang-btn');
+
+            if (lang === 'en') {
+                // İngilizceyi göster, Türkçeyi gizle
+                enElements.forEach(el => el.classList.remove('hidden'));
+                trElements.forEach(el => el.classList.add('hidden'));
+                // Buton aktiflik durumunu güncelle
+                buttons[0].classList.add('active');
+                buttons[1].classList.remove('active');
+            } else {
+                // Türkçeyi göster, İngilizceyi gizle
+                trElements.forEach(el => el.classList.remove('hidden'));
+                enElements.forEach(el => el.classList.add('hidden'));
+                // Buton aktiflik durumunu güncelle
+                buttons[1].classList.add('active');
+                buttons[0].classList.remove('active');
+            }
+        }
+        // Sayfa yüklendiğinde varsayılan olarak İngilizce başlasın
+        document.addEventListener('DOMContentLoaded', () => {
+            setLanguage('en');
+        });
+    </script>
 
 </body>
 </html>
