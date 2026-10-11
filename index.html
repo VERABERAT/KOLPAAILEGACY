@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Kolpa AI | Relationship Analysis</title>
+    <title>Kolpa AI | Independent AI App Studio</title>
+    <meta name="description" content="Kolpa AI is an independent iOS studio building AI apps for self-understanding, including Lumio: AI Journal &amp; Diary.">
     <style>
         /* --- CSS VARIABLES & RESET --- */
         :root {
@@ -93,12 +94,33 @@
         footer { background: var(--secondary-bg); padding: 50px 20px; text-align: center; margin-top: 50px; font-size: 13px; }
         footer p { color: var(--text-secondary); font-size: 13px; margin-bottom: 10px; }
 
+        /* --- STUDIO / APPS --- */
+        .eyebrow { display: inline-block; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-color); margin-bottom: 18px; }
+        .cta-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+        .cta-secondary { display: inline-block; padding: 15px 35px; border-radius: 30px; font-size: 17px; font-weight: 600; color: var(--text-primary); border: 1px solid #d2d2d7; }
+        .cta-secondary:hover { text-decoration: none; border-color: var(--text-primary); }
+        .lumio { background: linear-gradient(180deg, #f7f4ff 0%, #ffffff 100%); }
+        .app-head { display: flex; align-items: center; gap: 20px; justify-content: center; margin-bottom: 18px; flex-wrap: wrap; }
+        .app-mark { width: 72px; height: 72px; border-radius: 18px; background: linear-gradient(135deg, #7b5cff 0%, #ff8fb1 100%); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 34px; font-weight: 700; box-shadow: 0 10px 30px rgba(123,92,255,0.25); flex: none; }
+        .app-head h2 { margin-bottom: 0; text-align: left; }
+        .app-sub { text-align: center; font-size: 20px; max-width: 680px; margin: 0 auto 40px auto; }
+        .badge { display: inline-block; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: #e8f5ec; color: #1a7f37; margin-bottom: 14px; }
+        .badge.soon { background: #efeaff; color: #5b3fd6; }
+        .next-card { margin-top: 40px; background: var(--text-primary); color: #fff; border-radius: 24px; padding: 40px; }
+        .next-card h3 { color: #fff; font-size: 24px; margin-bottom: 12px; }
+        .next-card p { color: #c7c7cc; }
+        .next-card .badge.soon { background: rgba(255,255,255,0.12); color: #d9cfff; }
+        .center { text-align: center; margin-top: 40px; }
+        .legal-note { font-size: 15px; text-align: center; margin-bottom: 30px; }
+
         /* --- RESPONSIVE --- */
         @media (max-width: 768px) {
             .nav-links { display: none; } /* Mobile'da linkleri gizle, sadece dil kalsın */
             .hero h1 { font-size: 42px; }
             .hero p { font-size: 19px; }
             h2 { font-size: 32px; }
+            .app-head h2 { text-align: center; }
+            .next-card { padding: 28px; }
         }
     </style>
 </head>
@@ -111,8 +133,10 @@
         </div>
         <div class="nav-right">
             <div class="nav-links">
-                <a href="#features" data-lang="en">Features</a>
-                <a href="#features" data-lang="tr" class="hidden">Özellikler</a>
+                <a href="#lumio" data-lang="en">Lumio</a>
+                <a href="#lumio" data-lang="tr" class="hidden">Lumio</a>
+                <a href="#features" data-lang="en">Kolpa AI App</a>
+                <a href="#features" data-lang="tr" class="hidden">Kolpa AI Uygulaması</a>
                 <a href="#privacy" data-lang="en">Privacy</a>
                 <a href="#privacy" data-lang="tr" class="hidden">Gizlilik</a>
                 <a href="#terms" data-lang="en">Terms</a>
@@ -128,22 +152,82 @@
     <section class="hero">
         <div class="container">
             <div data-lang="en">
-                <h1>Decode Your Relationships<br>with AI Precision.</h1>
-                <p>The professional relationship analysis tool. Gain unbiased insights and clarity from your chat history instantly.</p>
-                <a href="#" class="cta-button">Download on the App Store</a>
+                <span class="eyebrow">Independent iOS AI studio</span>
+                <h1>AI apps that help people<br>understand themselves.</h1>
+                <p>Kolpa AI designs and builds consumer iOS apps on top of large language models. Our flagship app, Lumio, is a live AI journal on the App Store.</p>
+                <div class="cta-row">
+                    <a href="https://apps.apple.com/us/app/lumio-ai-journal-diary/id6759867486" class="cta-button" target="_blank" rel="noopener">Download Lumio</a>
+                    <a href="#lumio" class="cta-secondary">Meet Lumio</a>
+                </div>
             </div>
             <div data-lang="tr" class="hidden">
-                <h1>İlişkilerinizi Yapay Zeka<br>Hassasiyetiyle Çözümleyin.</h1>
-                <p>Profesyonel ilişki analiz aracı. Sohbet geçmişinizden anında tarafsız içgörüler ve netlik kazanın.</p>
-                <a href="#" class="cta-button">App Store'dan İndir</a>
+                <span class="eyebrow">Bağımsız iOS yapay zeka stüdyosu</span>
+                <h1>İnsanların kendini anlamasına<br>yardım eden yapay zeka uygulamaları.</h1>
+                <p>Kolpa AI, büyük dil modelleri üzerine tüketici odaklı iOS uygulamaları tasarlar ve geliştirir. Amiral gemimiz Lumio, App Store'da yayında olan bir yapay zeka günlüğüdür.</p>
+                <div class="cta-row">
+                    <a href="https://apps.apple.com/us/app/lumio-ai-journal-diary/id6759867486" class="cta-button" target="_blank" rel="noopener">Lumio'yu İndir</a>
+                    <a href="#lumio" class="cta-secondary">Lumio'yu Tanı</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="lumio" class="lumio">
+        <div class="container">
+            <div class="app-head">
+                <div class="app-mark" aria-hidden="true">L</div>
+                <h2>Lumio: AI Journal &amp; Diary</h2>
+            </div>
+            <p class="app-sub" data-lang="en">The AI journal that helps you understand your emotions, one entry at a time. Available now on the App Store for iPhone.</p>
+            <p class="app-sub hidden" data-lang="tr">Duygularınızı her yazıyla biraz daha iyi anlamanıza yardım eden yapay zeka günlüğü. iPhone için App Store'da yayında.</p>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div data-lang="en"><span class="badge">Live</span><h3>AI Insights</h3><p>Lumio reads across your entries to surface recurring emotions and patterns, then turns them into personal insights.</p></div>
+                    <div data-lang="tr" class="hidden"><span class="badge">Yayında</span><h3>Yapay Zeka İçgörüleri</h3><p>Lumio yazılarınız arasında tekrar eden duyguları ve kalıpları bulur, bunları size özel içgörülere dönüştürür.</p></div>
+                </div>
+                <div class="feature-card">
+                    <div data-lang="en"><span class="badge">Live</span><h3>Mood Tracking</h3><p>Log your daily mood and follow weekly and monthly emotional trends with clear charts.</p></div>
+                    <div data-lang="tr" class="hidden"><span class="badge">Yayında</span><h3>Ruh Hali Takibi</h3><p>Günlük ruh halinizi kaydedin, haftalık ve aylık duygusal eğilimlerinizi grafiklerle izleyin.</p></div>
+                </div>
+                <div class="feature-card">
+                    <div data-lang="en"><span class="badge">Live</span><h3>Guided Prompts &amp; Breathing</h3><p>Daily prompts adapted to your mood and goals, plus guided breathing to settle in before you write.</p></div>
+                    <div data-lang="tr" class="hidden"><span class="badge">Yayında</span><h3>Yönlendirmeli Sorular ve Nefes</h3><p>Ruh halinize ve hedeflerinize göre değişen günlük sorular, yazmadan önce sakinleşmek için nefes egzersizleri.</p></div>
+                </div>
+            </div>
+
+            <div class="next-card">
+                <div data-lang="en">
+                    <span class="badge soon">In development</span>
+                    <h3>Lumio Second Brain</h3>
+                    <p>A long-term memory layer built on Claude by Anthropic. It connects entries across months, surfaces the themes that keep coming back, and lets you ask questions across your own journal history.</p>
+                </div>
+                <div data-lang="tr" class="hidden">
+                    <span class="badge soon">Geliştiriliyor</span>
+                    <h3>Lumio İkinci Beyin</h3>
+                    <p>Anthropic'in Claude modeli üzerine kurulan uzun vadeli bir hafıza katmanı. Aylar boyunca yazdıklarınızı birbirine bağlar, tekrar eden temaları ortaya çıkarır ve kendi günlük geçmişinize soru sormanızı sağlar.</p>
+                </div>
+            </div>
+
+            <div class="center">
+                <div data-lang="en" class="cta-row">
+                    <a href="https://apps.apple.com/us/app/lumio-ai-journal-diary/id6759867486" class="cta-button" target="_blank" rel="noopener">Download on the App Store</a>
+                    <a href="https://veraberat.github.io/lumio-website/" class="cta-secondary" target="_blank" rel="noopener">Lumio website</a>
+                </div>
+                <div data-lang="tr" class="cta-row hidden">
+                    <a href="https://apps.apple.com/us/app/lumio-ai-journal-diary/id6759867486" class="cta-button" target="_blank" rel="noopener">App Store'dan İndir</a>
+                    <a href="https://veraberat.github.io/lumio-website/" class="cta-secondary" target="_blank" rel="noopener">Lumio web sitesi</a>
+                </div>
             </div>
         </div>
     </section>
 
     <section id="features" class="features">
         <div class="container">
-            <h2 data-lang="en">Core Features</h2>
-            <h2 data-lang="tr" class="hidden">Temel Özellikler</h2>
+            <h2 data-lang="en">Kolpa AI App</h2>
+            <h2 data-lang="tr" class="hidden">Kolpa AI Uygulaması</h2>
+            <p class="app-sub" data-lang="en">Our first app: AI-powered message analysis for the Turkish market. Upload a conversation and get an outside view of its tone and dynamics.</p>
+            <p class="app-sub hidden" data-lang="tr">İlk uygulamamız: Türkiye pazarı için yapay zeka destekli mesaj analizi. Bir konuşmayı yükleyin, tonu ve dinamikleri hakkında dışarıdan bir bakış alın.</p>
             
             <div class="feature-grid">
                 <div class="feature-card">
@@ -187,6 +271,7 @@
         <div class="container legal-content">
             <div data-lang="en">
                 <h2>Privacy Policy</h2>
+                <p class="legal-note">This policy covers the Kolpa AI app. Lumio has its own <a href="https://veraberat.github.io/lumio-website/privacy.html" target="_blank" rel="noopener">privacy policy</a>.</p>
                 <p><strong>Last Updated:</strong> February 19, 2026</p>
                 <h3>1. Data Collection and Usage</h3>
                 <p>Kolpa AI is an AI-powered entertainment application. To provide our core functionality, the app requires users to upload chat screenshots or text.</p>
@@ -202,6 +287,7 @@
 
             <div data-lang="tr" class="hidden">
                 <h2>Gizlilik Politikası</h2>
+                <p class="legal-note">Bu politika Kolpa AI uygulamasını kapsar. Lumio'nun kendi <a href="https://veraberat.github.io/lumio-website/privacy.html" target="_blank" rel="noopener">gizlilik politikası</a> vardır.</p>
                 <p><strong>Son Güncelleme:</strong> 19 Şubat 2026</p>
                 <h3>1. Veri Toplama ve Kullanım</h3>
                 <p>Kolpa AI, yapay zeka destekli bir eğlence uygulamasıdır. Uygulamanın çalışabilmesi için kullanıcıların sohbet metinleri veya ekran görüntüleri yüklemesi gerekir.</p>
@@ -262,6 +348,8 @@
     <footer>
         <div class="container">
             <p>&copy; 2026 Kolpa AI. All rights reserved.</p>
+            <p data-lang="en">Apps: <a href="https://apps.apple.com/us/app/lumio-ai-journal-diary/id6759867486" target="_blank" rel="noopener">Lumio: AI Journal &amp; Diary</a> · Kolpa AI</p>
+            <p data-lang="tr" class="hidden">Uygulamalar: <a href="https://apps.apple.com/us/app/lumio-ai-journal-diary/id6759867486" target="_blank" rel="noopener">Lumio: AI Journal &amp; Diary</a> · Kolpa AI</p>
             <p data-lang="en">Contact Support: <a href="mailto:support@kolpaai.me">support@kolpaai.me</a></p>
             <p data-lang="tr" class="hidden">Destek İletişim: <a href="mailto:support@kolpaai.me">support@kolpaai.me</a></p>
         </div>
